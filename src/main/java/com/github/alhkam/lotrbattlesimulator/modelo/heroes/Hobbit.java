@@ -1,8 +1,8 @@
-package com.github.alhkam.lotrbattlesimulator.model.heroes;
+package com.github.alhkam.lotrbattlesimulator.modelo.heroes;
 
-import com.github.alhkam.lotrbattlesimulator.model.beasts.Trasgo;
-import com.github.alhkam.lotrbattlesimulator.model.personaje.Heroe;
-import com.github.alhkam.lotrbattlesimulator.model.personaje.Personaje;
+import com.github.alhkam.lotrbattlesimulator.modelo.bestias.Trasgo;
+import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Heroe;
+import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Personaje;
 
 public class Hobbit extends Heroe {
 

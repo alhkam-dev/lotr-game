@@ -1,8 +1,8 @@
-package com.github.alhkam.lotrbattlesimulator.model.heroes;
+package com.github.alhkam.lotrbattlesimulator.modelo.heroes;
 
-import com.github.alhkam.lotrbattlesimulator.model.beasts.Orco;
-import com.github.alhkam.lotrbattlesimulator.model.personaje.Personaje;
-import com.github.alhkam.lotrbattlesimulator.model.personaje.Heroe;
+import com.github.alhkam.lotrbattlesimulator.modelo.bestias.Orco;
+import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Personaje;
+import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Heroe;
 
 public class Elfo extends Heroe {
 

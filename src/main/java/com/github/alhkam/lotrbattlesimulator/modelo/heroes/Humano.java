@@ -1,6 +1,6 @@
-package com.github.alhkam.lotrbattlesimulator.model.heroes;
+package com.github.alhkam.lotrbattlesimulator.modelo.heroes;
 
-import com.github.alhkam.lotrbattlesimulator.model.personaje.Heroe;
+import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Heroe;
 
 public class Humano extends Heroe {
     public Humano(String nombre, int puntosVida, int nivelArmadura) {

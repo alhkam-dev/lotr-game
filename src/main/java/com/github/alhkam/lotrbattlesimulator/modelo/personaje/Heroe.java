@@ -1,4 +1,4 @@
-package com.github.alhkam.lotrbattlesimulator.model.personaje;
+package com.github.alhkam.lotrbattlesimulator.modelo.personaje;
 
 
 public class Heroe extends Personaje {
@@ -8,7 +8,7 @@ public class Heroe extends Personaje {
     }
 
     @Override
-    public void atacar(Personaje personaje) {
+    public ResultadoAtaque atacar(Personaje personaje) {
 
         if (!(personaje instanceof Bestia)) {
             throw new IllegalArgumentException("Hero can only attack beasts");
@@ -16,7 +16,9 @@ public class Heroe extends Personaje {
 
         int poderAtaque = calcularPoderAtaque(personaje);
 
-        personaje.recibirDanyo(poderAtaque);
+        int danyoRealizado = personaje.recibirDanyo(poderAtaque, 1);
+
+        return new ResultadoAtaque(this.getNombre(), poderAtaque, danyoRealizado, personaje.getNombre());
     }
 
     protected int calcularPoderAtaque(Personaje personaje) {
