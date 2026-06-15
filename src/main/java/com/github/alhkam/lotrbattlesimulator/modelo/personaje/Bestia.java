@@ -7,15 +7,16 @@ public class Bestia extends Personaje {
   }
 
   @Override
-  public ResultadoAtaque atacar(Personaje personaje) {
+  public void atacar(Personaje personaje) {
     if (!(personaje instanceof Heroe)) {
-      throw new IllegalArgumentException("Beast can only attack heroes");
+      throw new IllegalArgumentException("Las bestias solo pueden atacar a los héroes");
     }
 
-    int numeroDado = (int) (Math.random() * 100);
+    int ataque = (int) (Math.random() * 100);
 
-    int danyoRealizado = personaje.recibirDanyo(numeroDado, 1);
+    int danyoRealizado = personaje.recibirDanyo(ataque, 1);
 
-    return new ResultadoAtaque(this.getNombre(), numeroDado, danyoRealizado, personaje.getNombre());
+    System.out.printf("\t\t%s saca %d y le quita %d de vida a %s\n",
+            this.getNombre(), ataque, danyoRealizado, personaje.getNombre());
   }
 }

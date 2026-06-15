@@ -8,25 +8,24 @@ public class Heroe extends Personaje {
     }
 
     @Override
-    public ResultadoAtaque atacar(Personaje personaje) {
+    public void atacar(Personaje personaje) {
 
         if (!(personaje instanceof Bestia)) {
-            throw new IllegalArgumentException("Hero can only attack beasts");
+            throw new IllegalArgumentException("Los héroes solo pueden atacar a las bestias");
         }
 
-        int poderAtaque = calcularPoderAtaque(personaje);
+        int ataque = calcularPoderAtaque(personaje);
 
-        int danyoRealizado = personaje.recibirDanyo(poderAtaque, 1);
+        int danyoRealizado = personaje.recibirDanyo(ataque, 1);
 
-        return new ResultadoAtaque(this.getNombre(), poderAtaque, danyoRealizado, personaje.getNombre());
+        System.out.printf("\t\t%s saca %d y le quita %d de vida a %s\n",
+                this.getNombre(), ataque, danyoRealizado, personaje.getNombre());
     }
 
     protected int calcularPoderAtaque(Personaje personaje) {
         int numeroDado1 = (int) (Math.random() * 100);
         int numeroDado2 = (int) (Math.random() * 100);
 
-        System.out.println("Die 1: " + numeroDado1);
-        System.out.println("Die 2: " + numeroDado2);
         return Math.max(numeroDado1, numeroDado2);
     }
 }

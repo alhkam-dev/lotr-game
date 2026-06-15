@@ -15,7 +15,7 @@ public abstract class Personaje {
     private int puntosVida;
     private int nivelArmadura;
 
-    public abstract ResultadoAtaque atacar(Personaje personaje);
+    public abstract void atacar(Personaje personaje);
 
     public int calcularDanyoRecibido(int poderAtaque, int armadura) {
         if(poderAtaque > armadura) {
@@ -36,7 +36,7 @@ public abstract class Personaje {
         return danyo;
     }
 
-    public boolean estaVivo() {
-        return this.puntosVida >= 0;
+    public boolean estaMuerto() {
+        return this.puntosVida <= 0;
     }
 }

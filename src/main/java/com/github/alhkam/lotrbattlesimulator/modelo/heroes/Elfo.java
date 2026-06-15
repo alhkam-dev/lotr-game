@@ -16,7 +16,6 @@ public class Elfo extends Heroe {
 
         if (personaje instanceof Orco) {
             attackPower += 10;
-            System.out.println("Elfs have +10 attack power against Orcs. New attack power: " + attackPower);
         }
 
         return attackPower;
