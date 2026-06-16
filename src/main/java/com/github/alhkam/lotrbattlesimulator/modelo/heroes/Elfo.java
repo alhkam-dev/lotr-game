@@ -6,18 +6,18 @@ import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Heroe;
 
 public class Elfo extends Heroe {
 
-    public Elfo(String name, int lifePoints, int armorLevel) {
-        super(name, lifePoints, armorLevel);
+  public Elfo(String nombre, int puntosVida, int nivelArmadura) {
+    super(nombre, puntosVida, nivelArmadura);
+  }
+
+  @Override
+  protected int calcularPoderAtaque(Personaje personaje) {
+    int attackPower = super.calcularPoderAtaque(personaje);
+
+    if (personaje instanceof Orco) {
+      attackPower += 10;
     }
 
-    @Override
-    protected int calcularPoderAtaque(Personaje personaje) {
-        int attackPower = super.calcularPoderAtaque(personaje);
-
-        if (personaje instanceof Orco) {
-            attackPower += 10;
-        }
-
-        return attackPower;
-    }
+    return attackPower;
+  }
 }

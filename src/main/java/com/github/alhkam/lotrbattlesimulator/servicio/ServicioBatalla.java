@@ -8,84 +8,118 @@ import java.util.List;
 
 public class ServicioBatalla {
 
-    private final List<Heroe> ejercitoHeroes;
-    private final List<Bestia> ejercitoBestias;
+  private final List<Heroe> ejercitoHeroes;
+  private final List<Bestia> ejercitoBestias;
 
-    public ServicioBatalla(List<Heroe> ejercitoHeroes, List<Bestia> ejercitoBestias) {
-        this.ejercitoHeroes = ejercitoHeroes;
-        this.ejercitoBestias = ejercitoBestias;
+  public ServicioBatalla() {
+    this.ejercitoHeroes = new ArrayList<>();
+    this.ejercitoBestias = new ArrayList<>();
+  }
+
+  public String ejecutarBatalla() {
+    StringBuilder logBatalla = new StringBuilder();
+    int turno = 1;
+
+    while (!condicionVictoria()) {
+      logBatalla.append("Turno ").append(turno).append(":\n");
+      logBatalla.append(ejecutarTurno());
+      turno++;
     }
 
-    public void ejecutarBatalla() {
-        int turno = 1;
-
-        while (!condicionVictoria()) {
-            System.out.println("Turno " + turno + ":");
-            ejecutarTurno();
-            turno++;
-        }
-
-        if (this.ejercitoHeroes.isEmpty()) {
-            System.out.println("¡¡VICTORIA DE LAS BESTIAS!!");
-        } else {
-            System.out.println("¡¡VICTORIA DE LOS HÉROES!!");
-        }
+    if (this.ejercitoHeroes.isEmpty()) {
+      logBatalla.append("¡¡VICTORIA DE LAS BESTIAS!!");
+    } else {
+      logBatalla.append("¡¡VICTORIA DE LOS HÉROES!!");
     }
 
-    private void ejecutarTurno() {
-        int miembrosEjercitoMenor = Math.min(this.ejercitoHeroes.size(), this.ejercitoBestias.size());
+    return logBatalla.toString();
+  }
 
-        List<Integer> muertosHeroes = new ArrayList<>();
-        List<Integer> muertosBestias = new ArrayList<>();
+  private String ejecutarTurno() {
+    StringBuilder logCombates = new StringBuilder();
 
-        // Se ejecuta turno combate
-        for (int i = 0; i < miembrosEjercitoMenor; i++) {
+    int miembrosEjercitoMenor = Math.min(this.ejercitoHeroes.size(), this.ejercitoBestias.size());
 
-            Heroe heroe = ejercitoHeroes.get(i);
-            Bestia bestia = ejercitoBestias.get(i);
+    List<Integer> muertosHeroes = new ArrayList<>();
+    List<Integer> muertosBestias = new ArrayList<>();
 
-            ejecutarCombate(heroe, bestia);
+    // Se ejecuta turno combate
+    for (int i = 0; i < miembrosEjercitoMenor; i++) {
 
-            if (heroe.estaMuerto()) {
-                System.out.println("\t¡Muere " + heroe.getClass().getSimpleName() + " "
-                        + heroe.getNombre() + "!");
-                muertosHeroes.add(i);
-            }
+      Heroe heroe = ejercitoHeroes.get(i);
+      Bestia bestia = ejercitoBestias.get(i);
 
-            if (bestia.estaMuerto()) {
-                System.out.println("\t¡Muere " + bestia.getClass().getSimpleName() + " "
-                        + bestia.getNombre() + "!");
-                muertosBestias.add(i);
-            }
-        }
+      logCombates.append(ejecutarCombate(heroe, bestia));
 
-        // Se eliminan los combatientes fallecidos
-        for (int i = muertosHeroes.size() - 1; i >= 0; i--) {
-            int posicionMuerto = muertosHeroes.get(i);
-            ejercitoHeroes.remove(posicionMuerto);
-        }
+      if (heroe.estaMuerto()) {
+        logCombates
+            .append("\t¡Muere ")
+            .append(heroe.getClass().getSimpleName())
+            .append(" ")
+            .append(heroe.getNombre())
+            .append("!");
+        muertosHeroes.add(i);
+      }
 
-        for (int i = muertosBestias.size() - 1; i >= 0; i--) {
-            int posicionMuerto = muertosBestias.get(i);
-            ejercitoBestias.remove(posicionMuerto);
-        }
-
+      if (bestia.estaMuerto()) {
+        logCombates
+            .append("\t¡Muere ")
+            .append(bestia.getClass().getSimpleName())
+            .append(" ")
+            .append(bestia.getNombre())
+            .append("!");
+        muertosBestias.add(i);
+      }
     }
 
-    private void ejecutarCombate(Heroe heroe, Bestia bestia) {
-        System.out.printf(
-                "\tLucha entre %s (Vida=%d Armadura=%d) y %s (Vida=%d Armadura=%d)\n",
-                heroe.getNombre(),
-                heroe.getPuntosVida(),
-                heroe.getNivelArmadura(),
-                bestia.getNombre(),
-                bestia.getPuntosVida(),
-                bestia.getNivelArmadura());
-        heroe.atacar(bestia);
-        bestia.atacar(heroe);
+    // Se eliminan los combatientes fallecidos
+    for (int i = muertosHeroes.size() - 1; i >= 0; i--) {
+      int posicionMuerto = muertosHeroes.get(i);
+      ejercitoHeroes.remove(posicionMuerto);
     }
 
-    private boolean condicionVictoria() {
-        return this.ejercitoHeroes.isEmpty() || this.ejercitoBestias.isEmpty();
+    for (int i = muertosBestias.size() - 1; i >= 0; i--) {
+      int posicionMuerto = muertosBestias.get(i);
+      ejercitoBestias.remove(posicionMuerto);
     }
+
+    return logCombates.toString();
+  }
+
+  private String ejecutarCombate(Heroe heroe, Bestia bestia) {
+    StringBuilder logCombate = new StringBuilder();
+    logCombate
+        .append("\tLucha entre ")
+        .append(heroe.getNombre())
+        .append("(Vida=")
+        .append(heroe.getPuntosVida())
+        .append(" Armadura=")
+        .append(heroe.getNivelArmadura())
+        .append(") y ")
+        .append(bestia.getNombre())
+        .append(" (Vida=")
+        .append(bestia.getPuntosVida())
+        .append(" Armadura=")
+        .append(bestia.getNivelArmadura())
+        .append(")\n");
+    logCombate.append(heroe.atacar(bestia));
+    bestia.atacar(heroe);
+
+    return logCombate.toString();
+  }
+
+  private boolean condicionVictoria() {
+    return this.ejercitoHeroes.isEmpty() || this.ejercitoBestias.isEmpty();
+  }
+
+  public int getTamanyoEjercitoHeroes() {
+    return this.ejercitoHeroes.size();
+  }
+
+  public int getTamanyoEjercitoBestias() {
+    return this.ejercitoBestias.size();
+  }
+
+  public void intercambiarPosicionesHeroes(int indice, int nuevoIndice) {
+  }
 }

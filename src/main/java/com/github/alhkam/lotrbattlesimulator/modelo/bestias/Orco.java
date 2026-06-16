@@ -6,21 +6,33 @@ import com.github.alhkam.lotrbattlesimulator.modelo.personaje.Personaje;
 
 public class Orco extends Bestia {
 
-    public Orco(String name, int lifePoints, int armorLevel) {
-        super(name, lifePoints, armorLevel);
+  public Orco(String nombre, int puntosVida, int nivelArmadura) {
+    super(nombre, puntosVida, nivelArmadura);
+  }
+
+  @Override
+  public String atacar(Personaje personaje) {
+    StringBuilder logAtaque = new StringBuilder();
+
+    if (!(personaje instanceof Heroe)) {
+      throw new IllegalArgumentException("Las bestias solo pueden atacar a héroes");
     }
 
-    @Override
-    public void atacar(Personaje personaje) {
-        if (!(personaje instanceof Heroe)) {
-            throw new IllegalArgumentException("Las bestias solo pueden atacar a héroes");
-        }
+    int ataque = (int) (Math.random() * 100);
 
-        int ataque = (int) (Math.random() * 100);
+    int danyoRealizado = personaje.recibirDanyo(ataque, 0.9);
 
-        int danyoRealizado = personaje.recibirDanyo(ataque, 0.9);
+    logAtaque
+        .append("\t\t")
+        .append(this.getNombre())
+        .append(" saca ")
+        .append(ataque)
+        .append(" y le quita ")
+        .append(danyoRealizado)
+        .append(" de vida a ")
+        .append(personaje.getNombre())
+        .append("\n");
 
-        System.out.printf("\t\t%s saca %d y le quita %d de vida a %s\n",
-                this.getNombre(), ataque, danyoRealizado, personaje.getNombre());
-    }
+    return logAtaque.toString();
+  }
 }

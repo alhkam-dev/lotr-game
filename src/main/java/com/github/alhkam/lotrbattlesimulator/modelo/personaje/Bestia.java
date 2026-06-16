@@ -7,7 +7,9 @@ public class Bestia extends Personaje {
   }
 
   @Override
-  public void atacar(Personaje personaje) {
+  public String atacar(Personaje personaje) {
+    StringBuilder logAtaque = new StringBuilder();
+
     if (!(personaje instanceof Heroe)) {
       throw new IllegalArgumentException("Las bestias solo pueden atacar a los héroes");
     }
@@ -16,7 +18,17 @@ public class Bestia extends Personaje {
 
     int danyoRealizado = personaje.recibirDanyo(ataque, 1);
 
-    System.out.printf("\t\t%s saca %d y le quita %d de vida a %s\n",
-            this.getNombre(), ataque, danyoRealizado, personaje.getNombre());
+    logAtaque
+        .append("\t\t")
+        .append(this.getNombre())
+        .append(" saca ")
+        .append(ataque)
+        .append(" y le quita ")
+        .append(danyoRealizado)
+        .append(" de vida a ")
+        .append(personaje.getNombre())
+        .append("\n");
+
+    return logAtaque.toString();
   }
 }
