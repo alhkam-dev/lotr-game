@@ -109,7 +109,7 @@ public class VistaBatalla extends JFrame {
     c.gridy = 1;
     panel.add(new JLabel("Tipo:"), c);
     c.gridx = 1;
-    cbTipoHeroe = new JComboBox<>(new String[] {"Elfos", "Humanos", "Hobbits"});
+    cbTipoHeroe = new JComboBox<>(new String[] {"Elfo", "Humano", "Hobbit"});
     panel.add(cbTipoHeroe, c);
 
     // Vida
@@ -165,7 +165,7 @@ public class VistaBatalla extends JFrame {
     c.gridy = 1;
     panel.add(new JLabel("Tipo:"), c);
     c.gridx = 1;
-    cbTipoBestia = new JComboBox<>(new String[] {"Orcos", "Trasgos"});
+    cbTipoBestia = new JComboBox<>(new String[] {"Orco", "Trasgo"});
     panel.add(cbTipoBestia, c);
 
     // Vida
@@ -219,7 +219,7 @@ public class VistaBatalla extends JFrame {
       btnBajarHeroe = btnBajar;
       btnEliminarHeroe = btnEliminar;
     } else {
-      listaHeroes = new JList<>(modeloListaBestias);
+      listaBestias = new JList<>(modeloListaBestias);
       lista = listaBestias;
 
       btnSubirBestia = btnSubir;
@@ -242,42 +242,108 @@ public class VistaBatalla extends JFrame {
   }
 
   // Suscripción a listeners
-  public void listenerBtnAnyadirHeroe(ActionListener listener) { btnAnyadirHeroe.addActionListener(listener); }
-  public void listenerBtnAnyadirBestia(ActionListener listener) { btnAnyadirBestia.addActionListener(listener); }
-  public void listenerBtnLuchar(ActionListener listener) { btnLucha.addActionListener(listener); }
+  public void listenerBtnAnyadirHeroe(ActionListener listener) {
+    btnAnyadirHeroe.addActionListener(listener);
+  }
 
-  public void listenerBtnSubirHeroe(ActionListener listener) { btnSubirHeroe.addActionListener(listener); }
-  public void listenerBtnBajarHeroe(ActionListener listener) { btnBajarHeroe.addActionListener(listener); }
-  public void listenerBtnEliminarHeroe(ActionListener listener) { btnEliminarHeroe.addActionListener(listener); }
+  public void listenerBtnAnyadirBestia(ActionListener listener) {
+    btnAnyadirBestia.addActionListener(listener);
+  }
 
-  public void listenerBtnSubirBestia(ActionListener listener) { btnSubirBestia.addActionListener(listener); }
-  public void listenerBtnBajarBestia(ActionListener listener) { btnBajarBestia.addActionListener(listener); }
-  public void listenerBtnEliminarBestia(ActionListener listener) { btnEliminarBestia.addActionListener(listener); }
+  public void listenerBtnLuchar(ActionListener listener) {
+    btnLucha.addActionListener(listener);
+  }
+
+  public void listenerBtnSubirHeroe(ActionListener listener) {
+    btnSubirHeroe.addActionListener(listener);
+  }
+
+  public void listenerBtnBajarHeroe(ActionListener listener) {
+    btnBajarHeroe.addActionListener(listener);
+  }
+
+  public void listenerBtnEliminarHeroe(ActionListener listener) {
+    btnEliminarHeroe.addActionListener(listener);
+  }
+
+  public void listenerBtnSubirBestia(ActionListener listener) {
+    btnSubirBestia.addActionListener(listener);
+  }
+
+  public void listenerBtnBajarBestia(ActionListener listener) {
+    btnBajarBestia.addActionListener(listener);
+  }
+
+  public void listenerBtnEliminarBestia(ActionListener listener) {
+    btnEliminarBestia.addActionListener(listener);
+  }
 
   // Getters campos
-  public String getNombreHeroe() { return txtNombreHeroe.getText(); }
-  public String getTipoHeroe() { return (String) cbTipoHeroe.getSelectedItem(); }
-  public String getVidaHeroe() { return txtVidaHeroe.getText(); }
-  public String getArmaduraHeroe() { return txtArmaduraHeroe.getText(); }
+  public String getNombreHeroe() {
+    return txtNombreHeroe.getText();
+  }
 
-  public String getNombreBestia() { return txtNombreBestia.getText(); }
-  public String getTipoBestia() { return (String) cbTipoBestia.getSelectedItem(); }
-  public String getVidaBestia() { return txtVidaBestia.getText(); }
-  public String getArmaduraBestia() { return txtArmaduraBestia.getText(); }
+  public String getTipoHeroe() {
+    return (String) cbTipoHeroe.getSelectedItem();
+  }
+
+  public String getVidaHeroe() {
+    return txtVidaHeroe.getText();
+  }
+
+  public String getArmaduraHeroe() {
+    return txtArmaduraHeroe.getText();
+  }
+
+  public String getNombreBestia() {
+    return txtNombreBestia.getText();
+  }
+
+  public String getTipoBestia() {
+    return (String) cbTipoBestia.getSelectedItem();
+  }
+
+  public String getVidaBestia() {
+    return txtVidaBestia.getText();
+  }
+
+  public String getArmaduraBestia() {
+    return txtArmaduraBestia.getText();
+  }
 
   // Interacción con lista
-  public int getIndiceHeroeSeleccionado() { return listaHeroes.getSelectedIndex(); }
-  public int getIndiceBestiaSeleccionado() { return listaBestias.getSelectedIndex(); }
+  public int getIndiceHeroeSeleccionado() {
+    return listaHeroes.getSelectedIndex();
+  }
 
-  public void setIndiceHeroeSeleccionado(int index) { listaHeroes.setSelectedIndex(index); }
-  public void setIndiceBestiaSeleccionado(int index) { listaBestias.setSelectedIndex(index); }
+  public int getIndiceBestiaSeleccionado() {
+    return listaBestias.getSelectedIndex();
+  }
+
+  public void setIndiceHeroeSeleccionado(int index) {
+    listaHeroes.setSelectedIndex(index);
+  }
+
+  public void setIndiceBestiaSeleccionado(int index) {
+    listaBestias.setSelectedIndex(index);
+  }
 
   // Actualizar lista
-  public void anyadirHeroeLista(String texto) { modeloListaHeroes.addElement(texto); }
-  public void anyadirBestiaLista(String texto) { modeloListaBestias.addElement(texto); }
+  public void anyadirHeroeLista(String texto) {
+    modeloListaHeroes.addElement(texto);
+  }
 
-  public void eliminarHeroeLista(int index) { modeloListaHeroes.remove(index); }
-  public void eliminarBestiaLista(int index) { modeloListaBestias.remove(index); }
+  public void anyadirBestiaLista(String texto) {
+    modeloListaBestias.addElement(texto);
+  }
+
+  public void eliminarHeroeLista(int index) {
+    modeloListaHeroes.remove(index);
+  }
+
+  public void eliminarBestiaLista(int index) {
+    modeloListaBestias.remove(index);
+  }
 
   // Métodos que controlan elementos de la vista
   public void intercambiarHeroesLista(int i, int j) {
@@ -293,8 +359,12 @@ public class VistaBatalla extends JFrame {
   }
 
   public void limpiarFormularios() {
-    txtNombreHeroe.setText(""); txtVidaHeroe.setText(""); txtArmaduraHeroe.setText("");
-    txtNombreBestia.setText(""); txtVidaBestia.setText(""); txtArmaduraBestia.setText("");
+    txtNombreHeroe.setText("");
+    txtVidaHeroe.setText("");
+    txtArmaduraHeroe.setText("");
+    txtNombreBestia.setText("");
+    txtVidaBestia.setText("");
+    txtArmaduraBestia.setText("");
   }
 
   public void escribirLog(String texto) {

@@ -21,22 +21,25 @@ public class ControladorBatalla {
     this.vista = vistaBatalla;
     this.servicio = servicioBatalla;
 
-    // Enlazar eventos
+    // Enlazar eventos creación personajes
     this.vista.listenerBtnAnyadirHeroe(e -> accionAnyadirHeroe());
     this.vista.listenerBtnAnyadirBestia(e -> accionAnyadirBestia());
 
+    // Enlazar eventos gestión ejercito de héroes
     this.vista.listenerBtnSubirHeroe(e -> accionSubirHeroe());
     this.vista.listenerBtnBajarHeroe(e -> accionBajarHeroe());
     this.vista.listenerBtnEliminarHeroe(e -> accionEliminarHeroe());
 
-    // 3. Enlazamos los eventos de ordenación y borrado de Bestias
+    // Enlazar eventos gestión ejercito de bestias
     this.vista.listenerBtnSubirBestia(e -> accionSubirBestia());
     this.vista.listenerBtnBajarBestia(e -> accionBajarBestia());
     this.vista.listenerBtnEliminarBestia(e -> accionEliminarBestia());
 
-    // 4. Enlazamos el botón del motor de juego
-    this.vista.listenerBtnLuchar(e -> accionIniciarGuerra());
+    // Enlzar botón de luchar
+    this.vista.listenerBtnLuchar(e -> accionIniciarLucha());
   }
+
+  // --- Creación personajes ---
 
   private void accionAnyadirHeroe() {
     String nombre = vista.getNombreHeroe();
@@ -94,13 +97,13 @@ public class ControladorBatalla {
       servicio.anyadirHeroe(nuevoHeroe);
 
       vista.anyadirHeroeLista(
-          nombre
+          nuevoHeroe.getNombre()
               + " - "
               + nuevoHeroe.getClass().getSimpleName()
               + "("
-              + vida
+              + nuevoHeroe.getPuntosVida()
               + ", "
-              + armadura
+              + nuevoHeroe.getNivelArmadura()
               + ")");
       vista.limpiarFormularios();
 
@@ -154,7 +157,7 @@ public class ControladorBatalla {
         case "Orco":
           nuevaBestia = new Orco(nombre, vida, armadura);
           break;
-        case "Humano":
+        case "Trasgo":
           nuevaBestia = new Trasgo(nombre, vida, armadura);
           break;
         default:
@@ -166,13 +169,13 @@ public class ControladorBatalla {
       servicio.anyadirBestia(nuevaBestia);
 
       vista.anyadirBestiaLista(
-          nombre
+          nuevaBestia.getNombre()
               + " - "
               + nuevaBestia.getClass().getSimpleName()
               + "("
-              + vida
+              + nuevaBestia.getPuntosVida()
               + ", "
-              + armadura
+              + nuevaBestia.getNivelArmadura()
               + ")");
       vista.limpiarFormularios();
 
@@ -185,8 +188,11 @@ public class ControladorBatalla {
     }
   }
 
+  // --- Gestión ejercitos héroes ---
+
   private void accionSubirHeroe() {
     int indice = vista.getIndiceHeroeSeleccionado();
+
     if (indice > 0) {
       int nuevoIndice = indice - 1;
       servicio.intercambiarPosicionesHeroes(indice, nuevoIndice);
@@ -197,7 +203,7 @@ public class ControladorBatalla {
 
   private void accionBajarHeroe() {
     int indice = vista.getIndiceHeroeSeleccionado();
-    // Le preguntamos al servicio el tamaño actual de los datos para validar el límite
+
     if (indice != -1 && indice < servicio.getTamanyoEjercitoHeroes() - 1) {
       int nuevoIndice = indice + 1;
       servicio.intercambiarPosicionesHeroes(indice, nuevoIndice);
@@ -212,5 +218,53 @@ public class ControladorBatalla {
       servicio.eliminarHeroe(indice);
       vista.eliminarHeroeLista(indice);
     }
+  }
+
+  // --- Gestión ejercitos bestias ---
+
+  private void accionSubirBestia() {
+    int indice = vista.getIndiceBestiaSeleccionado();
+
+    if (indice > 0) {
+      int nuevoIndice = indice - 1;
+      servicio.intercambiarPosicionesBestias(indice, nuevoIndice);
+      vista.intercambiarBestiasLista(indice, nuevoIndice);
+      vista.setIndiceBestiaSeleccionado(nuevoIndice);
+    }
+  }
+
+  private void accionBajarBestia() {
+    int indice = vista.getIndiceBestiaSeleccionado();
+
+    if (indice != -1 && indice < servicio.getTamanyoEjercitoBestias() - 1) {
+      int nuevoIndice = indice + 1;
+      servicio.intercambiarPosicionesBestias(indice, nuevoIndice);
+      vista.intercambiarBestiasLista(indice, nuevoIndice);
+      vista.setIndiceBestiaSeleccionado(nuevoIndice);
+    }
+  }
+
+  private void accionEliminarBestia() {
+    int indice = vista.getIndiceBestiaSeleccionado();
+    if (indice != -1) {
+      servicio.eliminarBestia(indice);
+      vista.eliminarBestiaLista(indice);
+    }
+  }
+
+  private void accionIniciarLucha() {
+    if (!servicio.hayEjercitosListos()) {
+      JOptionPane.showMessageDialog(
+          vista,
+          "No se puede iniciar la batalla. Se requiero al menos un personaje en cada ejercito.",
+          "Ejercitos incompletos",
+          JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+
+    vista.escribirLog("¡¡¡Comienza la Batalla por la Tierra Media!!!\n");
+
+    String logCombate = servicio.ejecutarBatalla();
+    vista.escribirLog(logCombate);
   }
 }

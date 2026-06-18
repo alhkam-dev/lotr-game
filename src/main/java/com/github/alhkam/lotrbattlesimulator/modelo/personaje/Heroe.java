@@ -19,7 +19,7 @@ public class Heroe extends Personaje {
     int danyoRealizado = personaje.recibirDanyo(ataque, 1);
 
     logAtaque
-        .append("\t\t")
+        .append("\t")
         .append(this.getNombre())
         .append(" saca ")
         .append(ataque)

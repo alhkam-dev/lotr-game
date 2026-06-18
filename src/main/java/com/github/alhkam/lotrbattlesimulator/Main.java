@@ -15,11 +15,12 @@ public class Main {
   public static void main(String[] args) {
     ServicioBatalla servicioBatalla = new ServicioBatalla();
 
-    SwingUtilities.invokeLater(() -> {
-      VistaBatalla vistaBatalla = new VistaBatalla();
+    SwingUtilities.invokeLater(
+        () -> {
+          VistaBatalla vistaBatalla = new VistaBatalla();
 
-      ControladorBatalla controladorBatalla = new ControladorBatalla(vistaBatalla, servicioBatalla);
-    });
-
+          ControladorBatalla controladorBatalla =
+              new ControladorBatalla(vistaBatalla, servicioBatalla);
+        });
   }
 }

@@ -23,7 +23,7 @@ public class Orco extends Bestia {
     int danyoRealizado = personaje.recibirDanyo(ataque, 0.9);
 
     logAtaque
-        .append("\t\t")
+        .append("\t")
         .append(this.getNombre())
         .append(" saca ")
         .append(ataque)
