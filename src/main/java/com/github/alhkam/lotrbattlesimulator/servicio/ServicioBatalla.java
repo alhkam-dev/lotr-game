@@ -7,24 +7,47 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Servicio de lógica de negocio encargado de gestionar el simulador.
+ *
+ * <p>Mantiene las colecciones de los ejércitos en memoria y controla el ciclo de vida de la
+ * batalla, incluyendo el añadir, eliminar y ordenar personajes en los ejércitos, y la ejecución del
+ * combate entre los distintos ejércitos.
+ *
+ * @author Sergio Aparicio Ramírez
+ * @version 1.0
+ */
 public class ServicioBatalla {
 
+  /** Lista que almacena los héroes activos en el ejército */
   private final List<Heroe> ejercitoHeroes;
+
+  /** Lista que almacena las bestias activas en el ejército */
   private final List<Bestia> ejercitoBestias;
 
+  /** Constructor del servicio. Inicializa las listas de los ejércitos como colecciones vacías. */
   public ServicioBatalla() {
     this.ejercitoHeroes = new ArrayList<>();
     this.ejercitoBestias = new ArrayList<>();
   }
 
   // --- Métodos de añadir personajes a ejercitos ---
-
+  /**
+   * Registra un nuevo héroe en el ejército de héroes si su instancia no es nula.
+   *
+   * @param heroe Instancia del héroe a añadir.
+   */
   public void anyadirHeroe(Heroe heroe) {
     if (heroe != null) {
       ejercitoHeroes.add(heroe);
     }
   }
 
+  /**
+   * Registra una nueva bestia en el ejército de bestias si su instancia no es nula.
+   *
+   * @param bestia Instancia de la bestia a añadir.
+   */
   public void anyadirBestia(Bestia bestia) {
     if (bestia != null) {
       ejercitoBestias.add(bestia);
@@ -32,13 +55,24 @@ public class ServicioBatalla {
   }
 
   // --- Métodos de eliminar personajes de ejercitos ---
-
+  /**
+   * Elimina un héroe del ejercito de héroes basándose en su posición dentro de la lista. Antes
+   * valida que el índice se encuentre dentro de los límites de la lista.
+   *
+   * @param indice Posición base cero del héroe a eliminar
+   */
   public void eliminarHeroe(int indice) {
     if (indice >= 0 && indice < ejercitoHeroes.size()) {
       ejercitoHeroes.remove(indice);
     }
   }
 
+  /**
+   * Elimina una bestia del ejercito de bestias basándose en su posición dentro de la lista. Antes
+   * valida que el índice se encuentre dentro de los límites de la lista.
+   *
+   * @param indice Posición base cero de la bestia a eliminar
+   */
   public void eliminarBestia(int indice) {
     if (indice >= 0 && indice < ejercitoBestias.size()) {
       ejercitoBestias.remove(indice);
@@ -46,7 +80,13 @@ public class ServicioBatalla {
   }
 
   // --- Métodos para intercambiar posiciones en ejercitos ---
-
+  /**
+   * Intercambia las posiciones de dos héroes dentro de la lista para modificar la prioridad en el
+   * combate.
+   *
+   * @param indice Posición base cero actual del héroe.
+   * @param nuevoIndice Nueva posición base cero del héroe dentro del ejército.
+   */
   public void intercambiarPosicionesHeroes(int indice, int nuevoIndice) {
     if (indice >= 0
         && indice < ejercitoHeroes.size()
@@ -56,6 +96,13 @@ public class ServicioBatalla {
     }
   }
 
+  /**
+   * Intercambia las posiciones de dos bestias dentro de la lista para modificar la prioridad en el
+   * combate.
+   *
+   * @param indice Posición base cero actual de la bestia.
+   * @param nuevoIndice Nueva posición base cero de la bestia dentro del ejército.
+   */
   public void intercambiarPosicionesBestias(int indice, int nuevoIndice) {
     if (indice >= 0
         && indice < ejercitoBestias.size()
@@ -66,15 +113,29 @@ public class ServicioBatalla {
   }
 
   // --- Métodos para validaciones ---
-
+  /**
+   * Obtiene la cantidad de héroes con vida dentro del ejército.
+   *
+   * @return Número total de héroes en el ejército
+   */
   public int getTamanyoEjercitoHeroes() {
     return this.ejercitoHeroes.size();
   }
 
+  /**
+   * Obtiene la cantidad de bestias con vida dentro del ejército.
+   *
+   * @return Número total de bestais en el ejército
+   */
   public int getTamanyoEjercitoBestias() {
     return this.ejercitoBestias.size();
   }
 
+  /**
+   * Comprueba si ambos ejércitos cuentan con al menos un integrante para poder iniciar la batalla.
+   *
+   * @return {@code true} si ambas listas no están vacías; {@code false} En caso contrario.
+   */
   public boolean hayEjercitosListos() {
     return !this.ejercitoHeroes.isEmpty() && !this.ejercitoBestias.isEmpty();
   }
@@ -82,7 +143,7 @@ public class ServicioBatalla {
   // --- Lógica de la batalla ---
 
   /**
-   * Ejecuta la lógica de la batalla hasta que uno de los dos ejercitos se quede sin combatientes
+   * Ejecuta la lógica de la batalla hasta que uno de los dos ejercitos se quede sin combatientes.
    *
    * @return String con la información de la batalla
    */
@@ -109,8 +170,8 @@ public class ServicioBatalla {
 
   /**
    * Ejecuta todos los combates que tienen lugar en un turno. Este tiene en cuenta al ejército con
-   * el menor número de combatientes ya que los combates son 1vs1. Registra las muertes de los combatientes
-   * y la gestión de los combates que tendrán lugar
+   * el menor número de combatientes ya que los combates son 1vs1. Registra las muertes de los
+   * combatientes y la gestión de los combates que tendrán lugar.
    *
    * @return String con los combatientes que caen en batalla
    */
@@ -151,7 +212,8 @@ public class ServicioBatalla {
       }
     }
 
-    // Se eliminan los combatientes fallecidos
+    // Se eliminan los combatientes fallecidos (en sentido inverso para no alterar los indices al
+    // eliminar combatientes de los ejércitos)
     for (int i = muertosHeroes.size() - 1; i >= 0; i--) {
       int posicionMuerto = muertosHeroes.get(i);
       ejercitoHeroes.remove(posicionMuerto);
@@ -168,9 +230,10 @@ public class ServicioBatalla {
   /**
    * Enfrenta a un héroe contra una bestia
    *
-   * @param heroe
-   * @param bestia
-   * @return String con la información de los combatientes en batalla y la información de su combate
+   * @param heroe El héore atacante/defensor.
+   * @param bestia La bestia atacante/defensor.
+   * @return String con la información de los combatientes en batalla y la información de su
+   *     combate.
    */
   private String ejecutarCombate(Heroe heroe, Bestia bestia) {
     StringBuilder logCombate = new StringBuilder();
@@ -194,6 +257,11 @@ public class ServicioBatalla {
     return logCombate.toString();
   }
 
+  /**
+   * Evalúa la condición de finalización de la simulación.
+   *
+   * @return {@code true} si al menos uno de los dos ejércitos se ha quedado sin combatientes.
+   */
   private boolean condicionVictoria() {
     return this.ejercitoHeroes.isEmpty() || this.ejercitoBestias.isEmpty();
   }

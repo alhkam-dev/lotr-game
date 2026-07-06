@@ -12,11 +12,32 @@ import com.github.alhkam.lotrbattlesimulator.vista.VistaBatalla;
 
 import javax.swing.*;
 
+/**
+ * Controlador principal de la aplicación en el patrón MVC.
+ *
+ * <p>Se encarga de actuar como intermediario entre la interfaz gráfica ({@link VistaBatalla}) y la
+ * lógica de negocio ({@link ServicioBatalla}). Captura los eventos disparados por los componentes
+ * de la vista, valida los datos de entrada del usuario y actualiza tanto el modelo como las listas
+ * visuales de los ejércitos.
+ *
+ * @author Sergio Aparicio Ramírez
+ * @version 1.0
+ */
 public class ControladorBatalla {
 
+  /** Referencia a la interfaz gráfica con la que interactúa el usuario. */
   private final VistaBatalla vista;
+
+  /** Referencia al servicio que gestiona la lógica de negocio de la simulación del combate. */
   private final ServicioBatalla servicio;
 
+  /**
+   * Constructor del controlador. Inicializa las referencias de la vista y el servicio, y enlaza las
+   * acciones sobre los componentes de la vista con sus métodos con expresiones lambda.
+   *
+   * @param vistaBatalla Instancia de la ventana con la que interactúa el usuario.
+   * @param servicioBatalla Instancia de la lógica de negocio de la batalla.
+   */
   public ControladorBatalla(VistaBatalla vistaBatalla, ServicioBatalla servicioBatalla) {
     this.vista = vistaBatalla;
     this.servicio = servicioBatalla;
@@ -40,7 +61,12 @@ public class ControladorBatalla {
   }
 
   // --- Creación personajes ---
-
+  /**
+   * Procesa el evento de añadir un héroe a la lista del ejército de héroes. Extrae los valores
+   * introducidos en el formulario y realiza las validaciones correspondientes. Si la validación es
+   * correcta instancia el tipo de héroe, actualiza el servicio e inserta la cadena con la información
+   * del héroe a la lista del ejército en la interfaz.
+   */
   private void accionAnyadirHeroe() {
     String nombre = vista.getNombreHeroe();
     String tipo = vista.getTipoHeroe();
@@ -116,6 +142,12 @@ public class ControladorBatalla {
     }
   }
 
+  /**
+   * Procesa el evento de añadir una bestia a la lista del ejército de bestias. Extrae los valores
+   * introducidos en el formulario y realiza las validaciones correspondientes. Si la validación es
+   * correcta instancia el tipo de bestia, actualiza el servicio e inserta la cadena con la
+   * información de la bestia a la lista del ejército en la interfaz.
+   */
   private void accionAnyadirBestia() {
     String nombre = vista.getNombreBestia();
     String tipo = vista.getTipoBestia();
@@ -189,7 +221,11 @@ public class ControladorBatalla {
   }
 
   // --- Gestión ejercitos héroes ---
-
+  /**
+   * Sube una posición al héroe seleccionado dentro de su ejército, coontrolando que no exceda el
+   * límite superior del tamaño de la lista. Modifica el índice tanto en el servicio como en la
+   * interfaz.
+   */
   private void accionSubirHeroe() {
     int indice = vista.getIndiceHeroeSeleccionado();
 
@@ -201,6 +237,11 @@ public class ControladorBatalla {
     }
   }
 
+  /**
+   * Baja una posición al héroe seleccionado dentro de su ejército, controlando que no exceda el
+   * límite inferior del tamaño de la lista. Modifica el índice tanto en el servicio como en la
+   * interfaz.
+   */
   private void accionBajarHeroe() {
     int indice = vista.getIndiceHeroeSeleccionado();
 
@@ -212,6 +253,7 @@ public class ControladorBatalla {
     }
   }
 
+  /** Elimina del ejército al héroe seleccionado. Actualiza tanto el modelo como el servicio. */
   private void accionEliminarHeroe() {
     int indice = vista.getIndiceHeroeSeleccionado();
     if (indice != -1) {
