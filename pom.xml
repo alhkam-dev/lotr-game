@@ -4,6 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>Lord of the Rings - Battle Simulator</name>
+    <description>Simulador de combate entre un ejército de héroes y otro de bestias con la temática del señor de los anillos</description>
+    <url>https://github.com/alhkam-dev/lotr-game</url>
+
+    <developers>
+        <developer>
+            <id>Alhkam</id>
+            <name>Sergio</name>
+            <email>alhkam.dev@gmail.com</email>
+            <roles>
+                <role>Backend Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <groupId>com.github.alhkam</groupId>
     <artifactId>lotr-battle-simulator</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -55,6 +70,7 @@
                 <configuration>
                     <show>private</show>
                     <encoding>UTF-8</encoding>
+                    <charset>UTF-8</charset>
                 </configuration>
             </plugin>
 
@@ -63,7 +79,44 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.21.0</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.alhkam.lotrbattlesimulator.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.1</version>
+                <configuration>
+                    <show>private</show>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

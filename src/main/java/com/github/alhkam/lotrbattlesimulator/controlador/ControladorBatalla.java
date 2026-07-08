@@ -64,8 +64,8 @@ public class ControladorBatalla {
   /**
    * Procesa el evento de añadir un héroe a la lista del ejército de héroes. Extrae los valores
    * introducidos en el formulario y realiza las validaciones correspondientes. Si la validación es
-   * correcta instancia el tipo de héroe, actualiza el servicio e inserta la cadena con la información
-   * del héroe a la lista del ejército en la interfaz.
+   * correcta instancia el tipo de héroe, actualiza el servicio e inserta la cadena con la
+   * información del héroe a la lista del ejército en la interfaz.
    */
   private void accionAnyadirHeroe() {
     String nombre = vista.getNombreHeroe();
@@ -222,7 +222,7 @@ public class ControladorBatalla {
 
   // --- Gestión ejercitos héroes ---
   /**
-   * Sube una posición al héroe seleccionado dentro de su ejército, coontrolando que no exceda el
+   * Sube una posición al héroe seleccionado dentro de su ejército, controlando que no exceda el
    * límite superior del tamaño de la lista. Modifica el índice tanto en el servicio como en la
    * interfaz.
    */
@@ -263,7 +263,11 @@ public class ControladorBatalla {
   }
 
   // --- Gestión ejercitos bestias ---
-
+  /**
+   * Sube una posición a la bestia seleccionada dentro de su ejército, controlando que no exceda el
+   * límite superior del tamaño de la lista. Modifica el índice tanto en el servicio como en la
+   * interfaz.
+   */
   private void accionSubirBestia() {
     int indice = vista.getIndiceBestiaSeleccionado();
 
@@ -275,6 +279,11 @@ public class ControladorBatalla {
     }
   }
 
+  /**
+   * Baja una posición a la bestia seleccionada dentro de su ejército, controlando que no exceda el
+   * límite inferior del tamaño de la lista. Modifica el índice tanto en el servicio como en la
+   * interfaz.
+   */
   private void accionBajarBestia() {
     int indice = vista.getIndiceBestiaSeleccionado();
 
@@ -286,6 +295,7 @@ public class ControladorBatalla {
     }
   }
 
+  /** Elimina del ejército al la bestia seleccionada. Actualiza tanto el modelo como el servicio. */
   private void accionEliminarBestia() {
     int indice = vista.getIndiceBestiaSeleccionado();
     if (indice != -1) {
@@ -294,6 +304,11 @@ public class ControladorBatalla {
     }
   }
 
+  /**
+   * Inicia la simulación de la batalla. Primero verifica si se cumplen los requisitos mínimos para
+   * iniciar la batalla. Si ambos ejércitos están listos llama al servicio de ejecutar batalla y
+   * muestra la información en el registro.
+   */
   private void accionIniciarLucha() {
     if (!servicio.hayEjercitosListos()) {
       JOptionPane.showMessageDialog(
