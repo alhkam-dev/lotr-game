@@ -38,6 +38,4 @@ This project intentionally avoids external web frameworks to highlight core soft
    java Main
    ```
 
-## 📬 Contact
-
-Sergio Aparicio - [LinkedIn]([https://linkedin.com](https://www.linkedin.com/in/sergio-aparicio/)) - sergioaparicio1995@gmail.com
+This project is open-source and available under the [MIT License](https://opensource.org).
